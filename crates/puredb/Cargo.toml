@@ -1,0 +1,14 @@
+[package]
+name = "puredb"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+storage = { path = "../storage" }
+catalog = { path = "../catalog" }
+access = { path = "../access" }
+execution = { path = "../execution" }
+sql = { path = "../sql" }
+concurrency = { path = "../concurrency" }
+recovery = { path = "../recovery" }
+network = { path = "../network" }

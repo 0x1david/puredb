@@ -1,0 +1,12 @@
+[package]
+name = "network"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+sql = { path = "../sql" }
+execution = { path = "../execution" }
+concurrency = { path = "../concurrency" }
+
+[dev-dependencies]
+test-utils = { path = "../test-utils" }

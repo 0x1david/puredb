@@ -1,0 +1,12 @@
+[package]
+name = "sql"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+catalog = { path = "../catalog" }
+execution = { path = "../execution" }
+access = { path = "../access" }
+
+[dev-dependencies]
+test-utils = { path = "../test-utils" }

@@ -1,0 +1,11 @@
+[package]
+name = "access"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+storage = { path = "../storage" }
+catalog = { path = "../catalog" }
+
+[dev-dependencies]
+test-utils = { path = "../test-utils" }

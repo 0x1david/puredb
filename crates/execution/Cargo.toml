@@ -1,0 +1,12 @@
+[package]
+name = "execution"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+storage = { path = "../storage" }
+catalog = { path = "../catalog" }
+access = { path = "../access" }
+
+[dev-dependencies]
+test-utils = { path = "../test-utils" }
