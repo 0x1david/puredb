@@ -18,7 +18,7 @@ The foundation layer and the project's primary focus. Manages how bytes are stor
 
 ## Sub-phases
 
-### 1.1 — Disk Manager
+### 1.1 — Disk Manager ✅
 The simplest possible layer. A struct that owns a file and can read/write fixed-size byte arrays (pages) by page ID. No caching, no concurrency — just raw I/O.
 
 - `allocate_page() → PageId`
