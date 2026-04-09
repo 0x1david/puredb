@@ -28,8 +28,9 @@ Cargo workspace with a binary entrypoint (`crates/puredb`) and library crates fo
 - `concurrency` — locks, MVCC, transaction manager
 - `recovery` — WAL, ARIES, checkpointing
 - `network` — TCP listener, wire protocol
+- `replication` — WAL shipping, Raft consensus, failover
 
-Dependencies flow downward: `network` → `sql` → `execution` → `access` → `catalog` → `storage`. `concurrency` and `recovery` are cross-cutting (used by storage and above).
+Dependencies flow downward: `network` → `sql` → `execution` → `access` → `catalog` → `storage`. `concurrency` and `recovery` are cross-cutting (used by storage and above). `replication` depends on `recovery` (WAL shipping) and `network`.
 
 ## Planning Docs
 
