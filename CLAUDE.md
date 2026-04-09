@@ -6,6 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 PureDB is a multi-threaded relational database built from scratch in Rust as a learning project. All code is hand-written by the user; Claude assists with planning and documentation only unless explicitly asked to write code.
 
+## Code Interaction Rules
+
+- **Do not read code files** — only read documentation, planning docs, and non-code files. Code files are off-limits unless the user explicitly @-references them.
+- **Do not write code in examples or responses** — explain concepts in plain language. No code snippets, no pseudocode, no inline examples.
+- **When the user @-references a code file** — you may read it and suggest improvements or point out issues. This is the only exception.
+
 ## Build Commands
 
 ```bash
