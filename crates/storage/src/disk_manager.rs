@@ -1,4 +1,3 @@
-#![allow(dead_code)]
 use std::{
     fs::{File, OpenOptions},
     io::{self},
@@ -6,10 +5,8 @@ use std::{
     path::Path,
 };
 
-pub const PAGE_SIZE: usize = 8192;
+use crate::common::{PageId, PAGE_SIZE};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub struct PageId(pub u32);
 impl PageId {
     fn from_file_len(v: u64) -> Self {
         PageId((v / PAGE_SIZE as u64) as u32)
