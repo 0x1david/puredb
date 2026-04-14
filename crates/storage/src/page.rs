@@ -7,17 +7,16 @@
 //
 //**Test:** Insert entries into a page until full, read them back by slot index, delete one, compact.
 //
-use crate::common::{PageId, PAGE_SIZE};
+use crate::common::{HEADER_SIZE, PAGE_SIZE, PageId, SLOT_SIZE};
 use std::mem::size_of;
 
 const HEADER_ID: usize = 0;
 const HEADER_NUM_SLOTS: usize = HEADER_ID + size_of::<u32>();
 const HEADER_FREE_START: usize = HEADER_NUM_SLOTS + size_of::<u16>();
 const HEADER_FREE_END: usize = HEADER_FREE_START + size_of::<u16>();
-const HEADER_SIZE: usize = HEADER_FREE_END + size_of::<u16>();
-const SLOT_SIZE: usize = 4;
 const SLOT_DATA_SIZE: usize = 0;
 const SLOT_DATA_OFFSET: usize = 2;
+const MAX_TUPLE_SIZE: usize = PAGE_SIZE - HEADER_SIZE - SLOT_SIZE;
 
 fn read_u16(b: &[u8], offset: usize) -> u16 {
     u16::from_le_bytes([b[offset], b[offset + 1]])
@@ -165,6 +164,12 @@ impl<'a> Page<'a> {
     pub fn insert(&mut self, data: &[u8]) -> Option<SlotIndex> {
         let size = data.len();
 
+        assert!(
+            size <= PAGE_SIZE - HEADER_SIZE - SLOT_SIZE,
+            "tuple size {size} exceeds maximum page capacity {}",
+            PAGE_SIZE - HEADER_SIZE - SLOT_SIZE
+        );
+
         if !self.has_enough_space(size) {
             self.compact();
 
@@ -183,13 +188,21 @@ impl<'a> Page<'a> {
     }
 
     pub fn read(&self, idx: SlotIndex) -> Option<&[u8]> {
-        assert!(idx < self.header().num_slots(), "slot index {idx} out of bounds (num_slots: {})", self.header().num_slots());
+        assert!(
+            idx < self.header().num_slots(),
+            "slot index {idx} out of bounds (num_slots: {})",
+            self.header().num_slots()
+        );
         let s = self.slot(idx);
         s.is_alive().then(|| self.tuple(s))
     }
 
     pub fn delete(&mut self, idx: SlotIndex) {
-        assert!(idx < self.header().num_slots(), "slot index {idx} out of bounds (num_slots: {})", self.header().num_slots());
+        assert!(
+            idx < self.header().num_slots(),
+            "slot index {idx} out of bounds (num_slots: {})",
+            self.header().num_slots()
+        );
         self.slot_mut(idx).mark_dead();
     }
 

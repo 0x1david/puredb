@@ -5,7 +5,7 @@ use std::{
     path::Path,
 };
 
-use crate::common::{PageId, PAGE_SIZE};
+use crate::common::{PAGE_SIZE, PageId};
 
 impl PageId {
     fn from_file_len(v: u64) -> Self {
